@@ -1,0 +1,97 @@
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 3.5rem 1.2rem 3.5rem;
+  background: rgba(10, 20, 40, 0.98);
+  box-shadow: 0 2px 24px #0008;
+  color: #fff;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #4ef3ff;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+.navbar-star {
+  color: #4ef3ff;
+  font-size: 1.2em;
+  margin-right: 0.2em;
+}
+.navbar-ai {
+  color: #fff;
+  font-weight: 700;
+  margin-left: 0.2em;
+}
+.navbar-divider {
+  width: 2px;
+  height: 32px;
+  background: linear-gradient(180deg, #4ef3ff 0%, #1e90ff 100%);
+  margin: 0 1.2rem;
+  border-radius: 2px;
+  display: inline-block;
+}
+.navbar-subtitle {
+  font-size: 1.05rem;
+  color: #b6c6e3;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.navbar-links li {
+  cursor: pointer;
+  transition: color 0.2s;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+}
+.navbar-links li:hover {
+  color: #4ef3ff;
+  background: #1a223a;
+}
+
+.navbar-contact-glow {
+  background: linear-gradient(90deg, #4ef3ff 0%, #1e90ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.13rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 16px #4ef3ff80, 0 2px 16px #1e90ff40;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.navbar-contact-glow:hover {
+  background: linear-gradient(90deg, #1e90ff 0%, #4ef3ff 100%);
+  box-shadow: 0 0 32px #4ef3ffcc, 0 4px 24px #1e90ff80;
+  transform: translateY(-2px) scale(1.04);
+}
