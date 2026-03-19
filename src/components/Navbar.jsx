@@ -15,7 +15,12 @@ function Navbar() {
       <ul className="navbar-links">
         <li>
           <div
-            to="/resume"
+            onClick={() =>
+              window.open(
+                "https://video-chunker.s3.us-east-2.amazonaws.com/careers/1773924559041-b5ddb8c1-e191-4c81-a6ff-a01f7b066cca.pdf",
+                "_blank",
+              )
+            }
             style={{
               color: "white",
               textDecoration: "none",
