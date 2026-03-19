@@ -267,6 +267,7 @@ function Home() {
             className="showcase-card"
             href="/1.mp4"
             target="_blank"
+            rel="noreferrer"
             onClick={handleCardClick}
           >
             <div className="showcase-img-wrap">
@@ -308,6 +309,7 @@ function Home() {
             className="showcase-card"
             href="/2.mp4"
             target="_blank"
+            rel="noreferrer"
             onClick={handleCardClick}
           >
             <div className="showcase-img-wrap">
@@ -351,6 +353,7 @@ function Home() {
             className="showcase-card"
             href="https://zingroll.com/watch/bose-the-mystery-unsolved"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -376,6 +379,7 @@ function Home() {
             className="showcase-card"
             href="https://zingroll.com/watch/ww2?trailer=1"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -402,6 +406,7 @@ function Home() {
             className="showcase-card"
             href="https://zingroll.com/watch/ww2?season=1&episode=1"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -428,6 +433,7 @@ function Home() {
             className="showcase-card"
             href="https://zingroll.com/watch/operation-sindoor"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -452,6 +458,7 @@ function Home() {
             className="showcase-card"
             href="https://zingroll.com/watch/f1"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -477,6 +484,7 @@ function Home() {
             className="showcase-card"
             href="https://zingroll.com/watch/iron-jaw"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -501,6 +509,7 @@ function Home() {
             className="showcase-card"
             href="https://zingroll.com/watch/remnant"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -525,6 +534,7 @@ function Home() {
             className="showcase-card"
             href="/3.mp4"
             target="_blank"
+            rel="noreferrer"
             onClick={handleCardClick}
           >
             <div className="showcase-img-wrap">
@@ -582,6 +592,7 @@ function Home() {
             href="https://www.instagram.com/reel/DQb065liPyf/?igsh=MWtld2dkeHkwdjE2OA%3D%3D"
             target="_blank"
             onClick={handleCardClick}
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -613,6 +624,7 @@ function Home() {
             href="https://www.instagram.com/reel/DP-TIaRDP4T/?igsh=MTl6MXRtbjlheWtiOA%3D%3D"
             target="_blank"
             onClick={handleCardClick}
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -643,6 +655,7 @@ function Home() {
             href="https://www.instagram.com/reel/DRZUqGQEt-B/?igsh=eWljcGhoaGR4YXVq"
             target="_blank"
             onClick={handleCardClick}
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -682,6 +695,7 @@ function Home() {
             href="https://www.instagram.com/itszenyuang?igsh=MXVxYWRzaDBraTY2cA%3D%3D"
             target="_blank"
             onClick={handleCardClick}
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
@@ -711,6 +725,7 @@ function Home() {
             href="https://www.instagram.com/georgelessons?igsh=N3BqYWNvOHFucjB4"
             target="_blank"
             onClick={handleCardClick}
+            rel="noreferrer"
           >
             <div className="showcase-img-wrap">
               <img
