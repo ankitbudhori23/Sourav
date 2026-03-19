@@ -115,7 +115,9 @@ function Home() {
   const videoRef = useRef(null);
 
   const openVideoModal = (videoUrl, title = "", desc = "") => {
-    setModalVideo(videoUrl);
+    setModalVideo(
+      `https://d2jjpiwbo3e767.cloudfront.net/Anime/Anohana${videoUrl}`,
+    );
     setModalTitle(title);
     setModalDesc(desc);
     setModalOpen(true);
