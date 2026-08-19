@@ -110,14 +110,23 @@ function Home() {
   // Video modal state & handlers for showcase cards without an external URL
   const [modalOpen, setModalOpen] = useState(false);
   const [modalVideo, setModalVideo] = useState(null);
+  const [modalMediaType, setModalMediaType] = useState("video");
   const [modalTitle, setModalTitle] = useState("");
   const [modalDesc, setModalDesc] = useState("");
   const videoRef = useRef(null);
+  const audioRef = useRef(null);
 
-  const openVideoModal = (videoUrl, title = "", desc = "") => {
-    setModalVideo(
-      `https://d2jjpiwbo3e767.cloudfront.net/Anime/Anohana${videoUrl}`,
-    );
+  const openVideoModal = (
+    videoUrl,
+    title = "",
+    desc = "",
+    mediaType = "video",
+  ) => {
+    const fullUrl = /^https?:\/\//i.test(videoUrl)
+      ? videoUrl
+      : `https://d2jjpiwbo3e767.cloudfront.net/Anime/Anohana${videoUrl}`;
+    setModalVideo(fullUrl);
+    setModalMediaType(mediaType);
     setModalTitle(title);
     setModalDesc(desc);
     setModalOpen(true);
@@ -125,10 +134,11 @@ function Home() {
     document.body.style.overflow = "hidden";
     // attempt to play after render
     setTimeout(() => {
-      if (videoRef.current) {
+      const el = mediaType === "audio" ? audioRef.current : videoRef.current;
+      if (el) {
         try {
-          videoRef.current.currentTime = 0;
-          const p = videoRef.current.play();
+          el.currentTime = 0;
+          const p = el.play();
           if (p && typeof p.then === "function") p.catch(() => {});
         } catch (err) {}
       }
@@ -137,12 +147,14 @@ function Home() {
 
   const closeVideoModal = () => {
     setModalOpen(false);
-    if (videoRef.current) {
-      try {
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0;
-      } catch (err) {}
-    }
+    [videoRef.current, audioRef.current].forEach((el) => {
+      if (el) {
+        try {
+          el.pause();
+          el.currentTime = 0;
+        } catch (err) {}
+      }
+    });
     setModalVideo(null);
     setModalTitle("");
     setModalDesc("");
@@ -160,15 +172,17 @@ function Home() {
   const handleCardClick = (e) => {
     const anchor = e.currentTarget;
     const href = anchor.getAttribute("href") || "";
-    // if the link points to a video file, open modal instead of navigating
-    if (/\.mp4($|\?)/i.test(href)) {
+    const isVideo = /\.mp4($|\?)/i.test(href);
+    const isAudio = /\.mp3($|\?)/i.test(href);
+    // if the link points to a media file, open modal instead of navigating
+    if (isVideo || isAudio) {
       e.preventDefault();
       const titleEl = anchor.querySelector("h3");
       const descEl = anchor.querySelector("p");
       const title =
         (titleEl && titleEl.textContent) || anchor.dataset.title || "";
       const desc = (descEl && descEl.textContent) || anchor.dataset.desc || "";
-      openVideoModal(href, title, desc);
+      openVideoModal(href, title, desc, isAudio ? "audio" : "video");
     }
   };
   return (
@@ -265,6 +279,319 @@ function Home() {
         <div className="showcase-cards">
           <a
             className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781673759714-88hwfg-1781673760266.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Unbroken Part 1</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic boxing drama created using Seedance 2.0, exploring
+                the fight, resilience, and determination of a boxer who refuses
+                to give up. The show was also showcased at ByteDance HQ in
+                Singapore.
+              </p>
+            </div>
+          </a>
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781762248053-qq4p4w-1781762247677.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Unbroken Part 2</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic boxing drama created using Seedance 2.0, exploring
+                the fight, resilience, and determination of a boxer who refuses
+                to give up. The show was also showcased at ByteDance HQ in
+                Singapore.
+              </p>
+            </div>
+          </a>
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786528778963-bddc9-1786528779522.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Unbroken Part 3</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic boxing drama created using Seedance 2.0, exploring
+                the fight, resilience, and determination of a boxer who refuses
+                to give up. The show was also showcased at ByteDance HQ in
+                Singapore.
+              </p>
+            </div>
+          </a>
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786778755590-013zz-1786778755183.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Unbroken Part 4</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic boxing drama created using Seedance 2.0, exploring
+                the fight, resilience, and determination of a boxer who refuses
+                to give up. The show was also showcased at ByteDance HQ in
+                Singapore.
+              </p>
+            </div>
+          </a>
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1787162548048-5u2kz6-1787162549378.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Bytedance</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic boxing drama created using Seedance 2.0, exploring
+                the fight, resilience, and determination of a boxer who refuses
+                to give up. The show was also showcased at ByteDance HQ in
+                Singapore.
+              </p>
+            </div>
+          </a>
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784179448575-f0hyv-1784179447733.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Remnant</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic drama inspired by Atonement, exploring love, guilt,
+                memory, and the lasting consequences of a single moment.
+              </p>
+            </div>
+          </a>
+
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784181898190-66x3xh-1784181896991.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Remnant -2</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic drama inspired by Atonement, exploring love, guilt,
+                memory, and the lasting consequences of a single moment.
+              </p>
+            </div>
+          </a>
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784183692281-93mze-1784183691457.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Remnant -3</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic drama inspired by Atonement, exploring love, guilt,
+                memory, and the lasting consequences of a single moment.
+              </p>
+            </div>
+          </a>
+
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784265940673-iyxanv-1784265940836.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Remnant -4</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic drama inspired by Atonement, exploring love, guilt,
+                memory, and the lasting consequences of a single moment.
+              </p>
+            </div>
+          </a>
+
+          <a
+            className="showcase-card"
+            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784269657099-x5t6y5-1784269657165.mp4"
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleCardClick}
+          >
+            <div className="showcase-img-wrap">
+              <img
+                className="showcase-img"
+                src="/images/unbroken1.png"
+                alt="Project Aurora"
+              />
+            </div>
+            <div className="showcase-info">
+              <h3>Remnant -5</h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 10,
+                  overflow: "hidden",
+                }}
+              >
+                A cinematic drama inspired by Atonement, exploring love, guilt,
+                memory, and the lasting consequences of a single moment.
+              </p>
+            </div>
+          </a>
+          <a
+            className="showcase-card"
             href="/1.mp4"
             target="_blank"
             rel="noreferrer"
@@ -278,7 +605,7 @@ function Home() {
               />
             </div>
             <div className="showcase-info">
-              <h3>AI Cinematic Capability Test – Kling 3 | February 2026</h3>
+              <h3>AI Cinematic Capability Test – Kling 3</h3>
               <p
                 style={{
                   fontSize: "16px",
@@ -322,7 +649,7 @@ function Home() {
             <div className="showcase-info">
               <h3>
                 AI Cinematic Concept Video – Kling 3 | “How to Date a
-                Billionaire” | March 2026
+                Billionaire”
               </h3>
               <p
                 style={{
@@ -778,7 +1105,16 @@ function Home() {
           aria-modal="true"
           aria-label={modalTitle}
         >
-          <video ref={videoRef} src={modalVideo || ""} controls />
+          {modalMediaType === "audio" ? (
+            <audio
+              ref={audioRef}
+              src={modalVideo || ""}
+              controls
+              style={{ width: "100%" }}
+            />
+          ) : (
+            <video ref={videoRef} src={modalVideo || ""} controls />
+          )}
           <div className="modal-meta">
             <h3 style={{ marginBottom: 10 }}>{modalTitle}</h3>
             <p>{modalDesc}</p>
