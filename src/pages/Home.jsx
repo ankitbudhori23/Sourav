@@ -116,6 +116,24 @@ function Home() {
   const videoRef = useRef(null);
   const audioRef = useRef(null);
 
+  // Episode list state (rendered inside the video modal for multi-part shows)
+  const [showTitle, setShowTitle] = useState("");
+  const [episodesList, setEpisodesList] = useState([]);
+  const [activeEpisodeIndex, setActiveEpisodeIndex] = useState(-1);
+
+  const playMediaSoon = (mediaType) => {
+    setTimeout(() => {
+      const el = mediaType === "audio" ? audioRef.current : videoRef.current;
+      if (el) {
+        try {
+          el.currentTime = 0;
+          const p = el.play();
+          if (p && typeof p.then === "function") p.catch(() => {});
+        } catch (err) {}
+      }
+    }, 60);
+  };
+
   const openVideoModal = (
     videoUrl,
     title = "",
@@ -129,20 +147,37 @@ function Home() {
     setModalMediaType(mediaType);
     setModalTitle(title);
     setModalDesc(desc);
+    setShowTitle("");
+    setEpisodesList([]);
+    setActiveEpisodeIndex(-1);
     setModalOpen(true);
-    // prevent background scroll while modal is open
     document.body.style.overflow = "hidden";
-    // attempt to play after render
-    setTimeout(() => {
-      const el = mediaType === "audio" ? audioRef.current : videoRef.current;
-      if (el) {
-        try {
-          el.currentTime = 0;
-          const p = el.play();
-          if (p && typeof p.then === "function") p.catch(() => {});
-        } catch (err) {}
-      }
-    }, 60);
+    playMediaSoon(mediaType);
+  };
+
+  const openShowModal = (title, episodes) => {
+    if (!episodes || episodes.length === 0) return;
+    const first = episodes[0];
+    setModalVideo(first.url);
+    setModalMediaType("video");
+    setModalTitle(first.title);
+    setModalDesc(first.desc || "");
+    setShowTitle(title);
+    setEpisodesList(episodes);
+    setActiveEpisodeIndex(0);
+    setModalOpen(true);
+    document.body.style.overflow = "hidden";
+    playMediaSoon("video");
+  };
+
+  const switchEpisode = (index) => {
+    const ep = episodesList[index];
+    if (!ep) return;
+    setActiveEpisodeIndex(index);
+    setModalVideo(ep.url);
+    setModalTitle(ep.title);
+    setModalDesc(ep.desc || "");
+    playMediaSoon("video");
   };
 
   const closeVideoModal = () => {
@@ -158,6 +193,9 @@ function Home() {
     setModalVideo(null);
     setModalTitle("");
     setModalDesc("");
+    setShowTitle("");
+    setEpisodesList([]);
+    setActiveEpisodeIndex(-1);
     document.body.style.overflow = "";
   };
 
@@ -184,6 +222,100 @@ function Home() {
       const desc = (descEl && descEl.textContent) || anchor.dataset.desc || "";
       openVideoModal(href, title, desc, isAudio ? "audio" : "video");
     }
+  };
+
+  const unbrokenEpisodes = [
+    {
+      title: "Unbroken Part 1",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781673759714-88hwfg-1781673760266.mp4",
+      thumb: "/images/unbroken.png",
+    },
+    {
+      title: "Unbroken Part 2",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781762248053-qq4p4w-1781762247677.mp4",
+      thumb: "/images/unbroken.png",
+    },
+    {
+      title: "Unbroken Part 3",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786528778963-bddc9-1786528779522.mp4",
+      thumb: "/images/unbroken.png",
+    },
+    {
+      title: "Unbroken Part 4",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786778755590-013zz-1786778755183.mp4",
+      thumb: "/images/unbroken.png",
+    },
+  ];
+
+  const remnantEpisodes = [
+    {
+      title: "Remnant Part 1",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784179448575-f0hyv-1784179447733.mp4",
+      thumb: "/images/remmet.png",
+    },
+    {
+      title: "Remnant Part 2",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784181898190-66x3xh-1784181896991.mp4",
+      thumb: "/images/remmet.png",
+    },
+    {
+      title: "Remnant Part 3",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784183692281-93mze-1784183691457.mp4",
+      thumb: "/images/remmet.png",
+    },
+    {
+      title: "Remnant Part 4",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784265940673-iyxanv-1784265940836.mp4",
+      thumb: "/images/remmet.png",
+    },
+    {
+      title: "Remnant Part 5",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784269657099-x5t6y5-1784269657165.mp4",
+      thumb: "/images/remmet.png",
+    },
+  ];
+
+  const playtimeEpisodes = [
+    {
+      title: "Playtime Part 1",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1785502126162-qus3m-1785502126347.mp4",
+      thumb: "/images/play.png",
+    },
+    {
+      title: "Playtime Part 2",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786440489826-uffdxh-1786440491904.mp4",
+      thumb: "/images/play.png",
+    },
+    {
+      title: "Playtime Part 3",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786427492402-mh4lbj-1786427493528.mp4",
+      thumb: "/images/play.png",
+    },
+    {
+      title: "Playtime Part 4",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786440641104-u6rny5-1786440642204.mp4",
+      thumb: "/images/play.png",
+    },
+    {
+      title: "Playtime Part 5",
+      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786444892199-gxo8vu-1786444893250.mp4",
+      thumb: "/images/play.png",
+    },
+  ];
+
+  const handleUnbrokenClick = (e) => {
+    e.preventDefault();
+    openShowModal("Unbroken", unbrokenEpisodes);
+  };
+
+  const handleRemnantClick = (e) => {
+    e.preventDefault();
+    openShowModal("Remnant", remnantEpisodes);
+  };
+
+  const handlePlaytimeClick = (e) => {
+    e.preventDefault();
+    openShowModal("Playtime", playtimeEpisodes);
   };
   return (
     <div className="home-bg">
@@ -279,116 +411,18 @@ function Home() {
         <div className="showcase-cards">
           <a
             className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781673759714-88hwfg-1781673760266.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
+            href="#unbroken"
+            onClick={handleUnbrokenClick}
           >
             <div className="showcase-img-wrap">
               <img
                 className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
+                src="/images/unbroken.png"
+                alt="Unbroken"
               />
             </div>
             <div className="showcase-info">
-              <h3>Unbroken Part 1</h3>
-              <p
-                style={{
-                  fontSize: "16px",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 10,
-                  overflow: "hidden",
-                }}
-              >
-                A cinematic boxing drama created using Seedance 2.0, exploring
-                the fight, resilience, and determination of a boxer who refuses
-                to give up. The show was also showcased at ByteDance HQ in
-                Singapore.
-              </p>
-            </div>
-          </a>
-          <a
-            className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781762248053-qq4p4w-1781762247677.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
-          >
-            <div className="showcase-img-wrap">
-              <img
-                className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
-              />
-            </div>
-            <div className="showcase-info">
-              <h3>Unbroken Part 2</h3>
-              <p
-                style={{
-                  fontSize: "16px",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 10,
-                  overflow: "hidden",
-                }}
-              >
-                A cinematic boxing drama created using Seedance 2.0, exploring
-                the fight, resilience, and determination of a boxer who refuses
-                to give up. The show was also showcased at ByteDance HQ in
-                Singapore.
-              </p>
-            </div>
-          </a>
-          <a
-            className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786528778963-bddc9-1786528779522.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
-          >
-            <div className="showcase-img-wrap">
-              <img
-                className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
-              />
-            </div>
-            <div className="showcase-info">
-              <h3>Unbroken Part 3</h3>
-              <p
-                style={{
-                  fontSize: "16px",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 10,
-                  overflow: "hidden",
-                }}
-              >
-                A cinematic boxing drama created using Seedance 2.0, exploring
-                the fight, resilience, and determination of a boxer who refuses
-                to give up. The show was also showcased at ByteDance HQ in
-                Singapore.
-              </p>
-            </div>
-          </a>
-          <a
-            className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786778755590-013zz-1786778755183.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
-          >
-            <div className="showcase-img-wrap">
-              <img
-                className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
-              />
-            </div>
-            <div className="showcase-info">
-              <h3>Unbroken Part 4</h3>
+              <h3>Unbroken</h3>
               <p
                 style={{
                   fontSize: "16px",
@@ -415,7 +449,7 @@ function Home() {
             <div className="showcase-img-wrap">
               <img
                 className="showcase-img"
-                src="/images/unbroken1.png"
+                src="/images/byte.png"
                 alt="Project Aurora"
               />
             </div>
@@ -439,16 +473,14 @@ function Home() {
           </a>
           <a
             className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784179448575-f0hyv-1784179447733.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
+            href="#remnant"
+            onClick={handleRemnantClick}
           >
             <div className="showcase-img-wrap">
               <img
                 className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
+                src="/images/remmet.png"
+                alt="Remnant"
               />
             </div>
             <div className="showcase-info">
@@ -467,23 +499,20 @@ function Home() {
               </p>
             </div>
           </a>
-
           <a
             className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784181898190-66x3xh-1784181896991.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
+            href="#playtime"
+            onClick={handlePlaytimeClick}
           >
             <div className="showcase-img-wrap">
               <img
                 className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
+                src="/images/play.png"
+                alt="Playtime"
               />
             </div>
             <div className="showcase-info">
-              <h3>Remnant -2</h3>
+              <h3>Playtime</h3>
               <p
                 style={{
                   fontSize: "16px",
@@ -493,100 +522,8 @@ function Home() {
                   overflow: "hidden",
                 }}
               >
-                A cinematic drama inspired by Atonement, exploring love, guilt,
-                memory, and the lasting consequences of a single moment.
-              </p>
-            </div>
-          </a>
-          <a
-            className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784183692281-93mze-1784183691457.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
-          >
-            <div className="showcase-img-wrap">
-              <img
-                className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
-              />
-            </div>
-            <div className="showcase-info">
-              <h3>Remnant -3</h3>
-              <p
-                style={{
-                  fontSize: "16px",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 10,
-                  overflow: "hidden",
-                }}
-              >
-                A cinematic drama inspired by Atonement, exploring love, guilt,
-                memory, and the lasting consequences of a single moment.
-              </p>
-            </div>
-          </a>
-
-          <a
-            className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784265940673-iyxanv-1784265940836.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
-          >
-            <div className="showcase-img-wrap">
-              <img
-                className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
-              />
-            </div>
-            <div className="showcase-info">
-              <h3>Remnant -4</h3>
-              <p
-                style={{
-                  fontSize: "16px",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 10,
-                  overflow: "hidden",
-                }}
-              >
-                A cinematic drama inspired by Atonement, exploring love, guilt,
-                memory, and the lasting consequences of a single moment.
-              </p>
-            </div>
-          </a>
-
-          <a
-            className="showcase-card"
-            href="https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784269657099-x5t6y5-1784269657165.mp4"
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleCardClick}
-          >
-            <div className="showcase-img-wrap">
-              <img
-                className="showcase-img"
-                src="/images/unbroken1.png"
-                alt="Project Aurora"
-              />
-            </div>
-            <div className="showcase-info">
-              <h3>Remnant -5</h3>
-              <p
-                style={{
-                  fontSize: "16px",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 10,
-                  overflow: "hidden",
-                }}
-              >
-                A cinematic drama inspired by Atonement, exploring love, guilt,
-                memory, and the lasting consequences of a single moment.
+                A retro sci-fi gaming show exploring a futuristic world where
+                gaming, technology, and adventure collide.
               </p>
             </div>
           </a>
@@ -1116,9 +1053,103 @@ function Home() {
             <video ref={videoRef} src={modalVideo || ""} controls />
           )}
           <div className="modal-meta">
-            <h3 style={{ marginBottom: 10 }}>{modalTitle}</h3>
+            <h3 style={{ marginBottom: 10 }}>
+              {showTitle ? `${showTitle} — ${modalTitle}` : modalTitle}
+            </h3>
             <p>{modalDesc}</p>
           </div>
+          {episodesList.length > 0 && (
+            <div style={{ marginTop: 6 }}>
+              <div
+                style={{
+                  color: "#b8cbe1",
+                  fontSize: 14,
+                  marginBottom: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: 1,
+                }}
+              >
+                Episodes
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+                  gap: 12,
+                }}
+              >
+                {episodesList.map((ep, i) => {
+                  const active = i === activeEpisodeIndex;
+                  return (
+                    <button
+                      key={ep.url}
+                      type="button"
+                      onClick={() => switchEpisode(i)}
+                      style={{
+                        background: active
+                          ? "rgba(120,180,255,0.18)"
+                          : "rgba(255,255,255,0.04)",
+                        border: active
+                          ? "1px solid rgba(120,180,255,0.6)"
+                          : "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: 10,
+                        padding: 0,
+                        cursor: "pointer",
+                        color: "#e6f7ff",
+                        textAlign: "left",
+                        overflow: "hidden",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "relative",
+                          width: "100%",
+                          aspectRatio: "16 / 9",
+                          background: "#000",
+                        }}
+                      >
+                        <img
+                          src={ep.thumb}
+                          alt={ep.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            display: "block",
+                            opacity: active ? 1 : 0.85,
+                          }}
+                        />
+                        <span
+                          style={{
+                            position: "absolute",
+                            left: 8,
+                            top: 8,
+                            background: active
+                              ? "rgba(120,180,255,0.9)"
+                              : "rgba(0,0,0,0.55)",
+                            color: active ? "#0a1220" : "#fff",
+                            fontSize: 12,
+                            fontWeight: 700,
+                            padding: "2px 8px",
+                            borderRadius: 999,
+                          }}
+                        >
+                          {active ? `▶ EP ${i + 1}` : `EP ${i + 1}`}
+                        </span>
+                      </div>
+                      <div style={{ padding: "8px 10px" }}>
+                        <div style={{ fontWeight: 600, fontSize: 14 }}>
+                          {ep.title}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

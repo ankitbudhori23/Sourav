@@ -514,9 +514,12 @@
 
 .hero-video-modal-content video {
   width: 100%;
+  max-height: 60vh;
   height: auto;
+  object-fit: contain;
   border-radius: 8px;
   background: #000;
+  display: block;
 }
 
 .modal-close {
