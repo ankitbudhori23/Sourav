@@ -227,22 +227,22 @@ function Home() {
   const unbrokenEpisodes = [
     {
       title: "Unbroken Part 1",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781673759714-88hwfg-1781673760266.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787233130441-1787233131543.mp4",
       thumb: "/images/unbroken.png",
     },
     {
       title: "Unbroken Part 2",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1781762248053-qq4p4w-1781762247677.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787233211658-1787233212756.mp4",
       thumb: "/images/unbroken.png",
     },
     {
       title: "Unbroken Part 3",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786528778963-bddc9-1786528779522.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787233286610-1787233287672.mp4",
       thumb: "/images/unbroken.png",
     },
     {
       title: "Unbroken Part 4",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786778755590-013zz-1786778755183.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787233433741-1787233434834.mp4",
       thumb: "/images/unbroken.png",
     },
   ];
@@ -250,27 +250,27 @@ function Home() {
   const remnantEpisodes = [
     {
       title: "Remnant Part 1",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784179448575-f0hyv-1784179447733.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787233984545-1787233985632.mp4",
       thumb: "/images/remmet.png",
     },
     {
       title: "Remnant Part 2",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784181898190-66x3xh-1784181896991.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234162509-1787234163566.mp4",
       thumb: "/images/remmet.png",
     },
     {
       title: "Remnant Part 3",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784183692281-93mze-1784183691457.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234192094-1787234193251.mp4",
       thumb: "/images/remmet.png",
     },
     {
       title: "Remnant Part 4",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784265940673-iyxanv-1784265940836.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234243309-1787234244428.mp4",
       thumb: "/images/remmet.png",
     },
     {
       title: "Remnant Part 5",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1784269657099-x5t6y5-1784269657165.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234353387-1787234354465.mp4",
       thumb: "/images/remmet.png",
     },
   ];
@@ -278,27 +278,27 @@ function Home() {
   const playtimeEpisodes = [
     {
       title: "Playtime Part 1",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1785502126162-qus3m-1785502126347.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234449256-1787234450374.mp4",
       thumb: "/images/play.png",
     },
     {
       title: "Playtime Part 2",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786440489826-uffdxh-1786440491904.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234798111-1787234799186.mp4",
       thumb: "/images/play.png",
     },
     {
       title: "Playtime Part 3",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786427492402-mh4lbj-1786427493528.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234612964-1787234614026.mp4",
       thumb: "/images/play.png",
     },
     {
       title: "Playtime Part 4",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786440641104-u6rny5-1786440642204.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234642448-1787234643639.mp4",
       thumb: "/images/play.png",
     },
     {
       title: "Playtime Part 5",
-      url: "https://video-chunker.s3.us-east-2.amazonaws.com/chunks/1786444892199-gxo8vu-1786444893250.mp4",
+      url: "https://d2jjpiwbo3e767.cloudfront.net/thumbnails/1787234723042-1787234724156.mp4",
       thumb: "/images/play.png",
     },
   ];
