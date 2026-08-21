@@ -1047,10 +1047,18 @@ function Home() {
               ref={audioRef}
               src={modalVideo || ""}
               controls
+              controlsList="nodownload"
+              onContextMenu={(e) => e.preventDefault()}
               style={{ width: "100%" }}
             />
           ) : (
-            <video ref={videoRef} src={modalVideo || ""} controls />
+            <video
+              ref={videoRef}
+              src={modalVideo || ""}
+              controls
+              controlsList="nodownload"
+              onContextMenu={(e) => e.preventDefault()}
+            />
           )}
           <div className="modal-meta">
             <h3 style={{ marginBottom: 10 }}>
